@@ -28,6 +28,7 @@ ParseAnnotations::HandlerMap ParseAnnotations::standardHandlers() {
             PARSE_EMPTY(IR::Annotation::optionalAnnotation),
             PARSE_EMPTY(IR::Annotation::pureAnnotation),
             PARSE_EMPTY(IR::Annotation::noSideEffectsAnnotation),
+            PARSE_EMPTY(IR::Annotation::referenceAnnotation),
 
             // string literal argument.
             PARSE(IR::Annotation::nameAnnotation, StringLiteral),
@@ -37,8 +38,9 @@ ParseAnnotations::HandlerMap ParseAnnotations::standardHandlers() {
             // @length has an expression argument.
             PARSE(IR::Annotation::lengthAnnotation, Expression),
 
-            // @pkginfo has a key-value list argument.
+            // @pkginfo and @tableconfig has a key-value list argument.
             PARSE_KV_LIST(IR::Annotation::pkginfoAnnotation),
+            PARSE_KV_LIST(IR::Annotation::tableConfig),
 
             // @synchronous has a list of method names
             PARSE_EXPRESSION_LIST(IR::Annotation::synchronousAnnotation),

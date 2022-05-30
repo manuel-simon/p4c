@@ -183,7 +183,7 @@ class FindUninitialized : public Inspector {
                             Definitions* defs) {
         LOG2("Checking output parameters; definitions are " << IndentCtl::endl << defs);
         for (auto p : parameters->parameters) {
-            if (p->direction == IR::Direction::Out || p->direction == IR::Direction::InOut) {
+            if (p->direction == IR::Direction::Out || p->direction == IR::Direction::InOut  || p->getAnnotation(IR::Annotation::referenceAnnotation)) {
                 auto storage = definitions->storageMap->getStorage(p);
                 LOG3("Checking parameter: " << p);
                 if (storage == nullptr)

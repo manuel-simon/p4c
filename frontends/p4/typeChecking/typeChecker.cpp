@@ -2614,8 +2614,10 @@ const IR::Node* TypeInference::postorder(IR::PathExpression* expression) {
         setLeftValue(getOriginal<IR::Expression>());
     } else if (decl->is<IR::Parameter>()) {
         auto paramDecl = decl->to<IR::Parameter>();
-        if (paramDecl->direction == IR::Direction::InOut ||
-            paramDecl->direction == IR::Direction::Out) {
+         auto refAnnotation = paramDecl->getAnnotation(IR::Annotation::referenceAnnotation);
+         if (paramDecl->direction == IR::Direction::InOut ||
+            paramDecl->direction == IR::Direction::Out ||
+            refAnnotation != nullptr) {
             setLeftValue(expression);
             setLeftValue(getOriginal<IR::Expression>());
         } else if (paramDecl->direction == IR::Direction::None) {
